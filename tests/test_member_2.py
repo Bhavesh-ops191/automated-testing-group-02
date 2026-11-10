@@ -137,3 +137,65 @@ def test_add_two_tasks(page: Page):
     expect(task_items.locator("label")).to_have_text(
         ["Read the instructions", "Practise the examples"]
     )
+
+def test_active_task_delete(page: Page):
+    page.goto(URL)
+
+    task_input = page.get_by_placeholder(
+        "What needs to be done?",
+        exact=True,
+    )
+    task_items = page.locator(".todo-list li")
+
+    # Setup: Add an active task
+    task_input.fill("Delete this active task")
+    task_input.press("Enter")
+
+    expect(task_items).to_have_count(1)
+    expect(task_items.locator("label")).to_have_text(
+        ["Delete this active task"]
+    )
+
+    # Action: Hover over the task and click delete
+    task_items.first.hover()
+    task_items.first.locator("button.destroy").click()
+
+    expect(task_items).to_have_count(0)
+
+    page.screenshot(
+        path="docs/evidence/member-2/active-task-delete.png",
+        full_page=True,
+    )
+
+
+def test_completed_task_delete(page: Page):
+    page.goto(URL)
+
+    task_input = page.get_by_placeholder(
+        "What needs to be done?",
+        exact=True,
+    )
+    task_items = page.locator(".todo-list li")
+
+    # Setup: Add a task
+    task_input.fill("Delete this completed task")
+    task_input.press("Enter")
+
+    expect(task_items).to_have_count(1)
+
+    checkbox = task_items.first.get_by_role("checkbox")
+    checkbox.check()
+
+    # Assertion: Confirm the task is completed
+    expect(checkbox).to_be_checked()
+
+    # Action: Hover over the task and click delete
+    task_items.first.hover()
+    task_items.first.locator("button.destroy").click()
+
+    expect(task_items).to_have_count(0)
+
+    page.screenshot(
+        path="docs/evidence/member-2/completed-task-delete.png",
+        full_page=True,
+    )
