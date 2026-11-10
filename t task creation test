@@ -1,0 +1,29 @@
+[1mdiff --git a/tests/test_member_1.py b/tests/test_member_1.py[m
+[1mindex e69de29..455a160 100644[m
+[1m--- a/tests/test_member_1.py[m
+[1m+++ b/tests/test_member_1.py[m
+[36m@@ -0,0 +1,23 @@[m
+[32m+[m[32mfrom playwright.sync_api import Page, expect[m
+[32m+[m
+[32m+[m[32mURL = "https://demo.playwright.dev/todomvc/"[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_add_task(page: Page):[m
+[32m+[m[32m    page.goto(URL)[m
+[32m+[m
+[32m+[m[32m    task_input = page.get_by_placeholder([m
+[32m+[m[32m        "What needs to be done?",[m
+[32m+[m[32m        exact=True,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    task_items = page.locator(".todo-list li")[m
+[32m+[m[32m    task_labels = task_items.locator("label")[m
+[32m+[m
+[32m+[m[32m    expect(task_items).to_have_count(0)[m
+[32m+[m
+[32m+[m[32m    task_input.fill("Read testing notes")[m
+[32m+[m[32m    task_input.press("Enter")[m
+[32m+[m
+[32m+[m[32m    expect(task_items).to_have_count(1)[m
+[32m+[m[32m    expect(task_labels).to_have_text(["Read testing notes"])[m
+[32m+[m[32m    expect(task_input).to_have_value("")[m
+\ No newline at end of file[m
