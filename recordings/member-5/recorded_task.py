@@ -7,3 +7,4 @@ def test_example(page: Page) -> None:
     page.get_by_role("textbox", name="What needs to be done?").fill("testing")
     page.get_by_role("textbox", name="What needs to be done?").press("Enter")
     page.get_by_role("textbox", name="What needs to be done?").press("Escape")
+    expect(page.locator(".todo-list li label")).to_have_text(["testing"])
