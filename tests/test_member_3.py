@@ -135,3 +135,62 @@ def test_add_two_tasks(page: Page):
     expect(task_items.locator("label")).to_have_text(
         ["Read the instructions", "Practise the examples"]
     )
+
+def test_save_an_edit_with_enter(page: Page):
+    page.goto(URL)
+    task_items = page.locator(".todo-list li")
+
+    add_task(page, "Complete homework")
+
+    expect(task_items).to_have_count(1)
+    expect(task_items.locator("label")).to_have_text(
+        ["Complete homework"]
+    )
+
+    task_items.locator("label").dblclick()
+
+    edit_input = task_items.locator(".edit")
+    edit_input.fill("Complete assignment")
+
+    edit_input.press("Enter")
+
+    expect(task_items.locator("label")).to_have_text(
+        ["Complete assignment"]
+    )
+
+    page.screenshot(
+    path="docs/evidence/member-3/extra-test-1-save-an-edit-with-enter.png",
+    full_page=True,
+    )
+
+def test_mark_all_as_complete(page: Page):
+    page.goto(URL)
+    task_items = page.locator(".todo-list li")
+    toggle_all = page.locator(".toggle-all")
+
+    add_task(page, "Complete homework")
+    add_task(page, "Write summary notes")
+    add_task(page, "Read a chapter")
+
+    expect(task_items).to_have_count(3)
+
+    toggle_all.check()
+
+    expect(task_items).to_have_class([
+        "completed",
+        "completed",
+        "completed"
+    ])
+
+    expect(task_items.locator(".toggle")).to_have_count(3)
+
+    for i in range(3):
+        expect(task_items.nth(1).locator(".toggle")).to_be_checked()
+
+    expect(page.locator(".todo-count")).to_contain_text("0 items left")
+
+    page.screenshot(
+    path="docs/evidence/member-3/extra-test-2-mark-all-as-complete.png",
+    full_page=True,
+    )
+    
