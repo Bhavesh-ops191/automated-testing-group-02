@@ -8,7 +8,7 @@ Cosmetic changes to copied code are not sufficient.
 | --- | --- | --- | --- |
 | 1, Bhavesh | | | `docs/evidence/member-1/` |
 | 2, Xue Ning | Delete an active task | Delete a completed task | `docs/evidence/member-2/` |
-| 3, Kay Yin | | | `docs/evidence/member-3/` |
+| 3, Kay Yin | Save an edit with Enter | Mark all as complete | `docs/evidence/member-3/` |
 | 4, Gerick | | | `docs/evidence/member-4/` |
 | 5, Gurveer | Cancel edits with escape | Wrong username | `docs/evidence/member-5/` |
 
